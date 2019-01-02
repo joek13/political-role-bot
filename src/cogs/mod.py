@@ -1,8 +1,10 @@
 from discord.ext import commands
 import discord
 
+
 class Moderation:
     """Various commands to aid in moderating the server."""
+
     def __init__(self, bot, config):
         self.bot = bot
         self.config = config

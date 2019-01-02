@@ -37,7 +37,7 @@ class Roles:
     async def add(self, ctx, *roles):
         """Assigns `roles` to this user."""
         roles_processed = []
-        for role in roles: # iterate over each role, verify it, and add its Role object to a list
+        for role in roles:  # iterate over each role, verify it, and add its Role object to a list
             role = role.lower().strip()
             role_id = self._get_role(role)
             if role_id != None:
@@ -55,7 +55,7 @@ class Roles:
     async def remove(self, ctx, *roles):
         """Removes `roles` from this user."""
         roles_processed = []
-        for role in roles: # iterate over each role, verify it, and add its Role object to a list
+        for role in roles:  # iterate over each role, verify it, and add its Role object to a list
             role = role.lower().strip()
             role_id = self._get_role(role)
             if role_id != None:
@@ -75,7 +75,9 @@ class Roles:
     async def generate_config(self, ctx):
         """Generates a config file with all roles on the server. For admin use only."""
         roles = ctx.guild.roles
-        config_text = "[roles]\n" + "\n".join([f"\"{role.name.lower()}\"=\"{role.id}\"" for role in roles])
+        config_text = "[roles]\n" + \
+            "\n".join(
+                [f"\"{role.name.lower()}\"=\"{role.id}\"" for role in roles])  # ignore this mess pls
         await ctx.send(f"Here you go, fresh from the oven:\n```md\n{config_text}```")
 
     @role.command()
