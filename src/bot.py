@@ -2,13 +2,13 @@ import discord
 import config
 import logging
 from discord.ext import commands
-from cogs import roles, error
+from cogs import roles, error, welcome
 
 cfg = config.load_config(config_path="./config.toml")
 
 bot = commands.Bot(command_prefix=cfg["command_prefix"])
 
-COGS = [roles.Roles, error.CommandErrorHandler]
+COGS = [roles.Roles, error.CommandErrorHandler, welcome.Welcome]
 
 def add_cogs():
     for cog in COGS:

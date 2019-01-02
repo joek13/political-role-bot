@@ -1,5 +1,7 @@
 token="" # your token here
 guild_id="" # the ID of the guild this bot operates in
 command_prefix="^" # prefix to activate the bot
+rules_channel_id="" # id to your rules channel
+owner_id="" # user ID of the bot owner
 [roles]
 "name"="id" # key is the preferred name of a role, id is its id
