@@ -2,13 +2,13 @@ import discord
 import config
 import logging
 from discord.ext import commands
-from cogs import roles, error, welcome
+from cogs import roles, error, welcome, mod
 
 cfg = config.load_config(config_path="./config.toml")
 
 bot = commands.Bot(command_prefix=cfg["command_prefix"])
 
-COGS = [roles.Roles, error.CommandErrorHandler, welcome.Welcome]
+COGS = [roles.Roles, error.CommandErrorHandler, welcome.Welcome, mod.Moderation]
 
 
 def add_cogs():
@@ -19,7 +19,7 @@ def add_cogs():
 
 @bot.event
 async def on_guild_join(guild):
-    if guild.id != cfg["guild_id"]:
+    if guild.id != cfg["guild_id"]: # leave other guilds
         logging.info(f"Added to guild ID {guild.id}. Leaving...")
         await guild.leave()
 
