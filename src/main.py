@@ -1,4 +1,5 @@
-import bot, config
+import bot
+import config
 import logging
 
 if __name__ == "__main__":

@@ -1,6 +1,9 @@
 from discord.ext import commands
+
+
 class Welcome:
     """Welcomes users to the guild with a helpful message."""
+
     def __init__(self, bot, config):
         self.bot = bot
         self.config = config
@@ -17,4 +20,3 @@ class Welcome:
     async def welcome(self, ctx):
         """Re-sends the guild welcome message, just in case you need it."""
         await self._send_welcome_message(ctx.author)
-

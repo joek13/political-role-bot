@@ -1,21 +1,25 @@
 from discord.ext import commands
 import logging
 
+
 class Roles:
     """Commands that help with managing user roles."""
-    
+
     def __init__(self, bot, config):
         self.bot = bot
         self.config = config
 
     async def on_ready(self):
         try:
-            self.guild = next(x for x in self.bot.guilds if x.id == int(self.config["guild_id"]))
+            self.guild = next(x for x in self.bot.guilds if x.id == int(
+                self.config["guild_id"]))
         except StopIteration as e:
-            raise RuntimeError("The bot does not appear to be in a guild with the ID in config. Please either add the bot to this guild or change the guild ID.")
+            raise RuntimeError(
+                "The bot does not appear to be in a guild with the ID in config. Please either add the bot to this guild or change the guild ID.")
 
     def _get_role(self, role_name):
-        role = next((x for x in self.config["roles"].keys() if x == role_name), None)
+        role = next(
+            (x for x in self.config["roles"].keys() if x == role_name), None)
         if role != None:
             return int(self.config["roles"][role])
         else:
@@ -32,7 +36,8 @@ class Roles:
             await member.add_roles(role)
             await ctx.send(f"You have been added to role `{role}`.")
         else:
-            raise commands.CommandError(f"That role doesn't exist. Use `{self.bot.command_prefix}roles` for a list of roles.")
+            raise commands.CommandError(
+                f"That role doesn't exist. Use `{self.bot.command_prefix}roles` for a list of roles.")
 
     @commands.command(aliases=["roledel"])
     async def remove(self, ctx, role):
@@ -45,11 +50,11 @@ class Roles:
             await member.remove_roles(role)
             await ctx.send(f"You have been removed from role `{role}`.")
         else:
-            raise commands.CommandError(f"That role doesn't exist. Use `{self.bot.command_prefix}roles` for a list of roles.")
+            raise commands.CommandError(
+                f"That role doesn't exist. Use `{self.bot.command_prefix}roles` for a list of roles.")
 
     @commands.command()
     async def roles(self, ctx):
         """Lists available roles to take on."""
         roles = "\n".join(self.config["roles"].keys())
         await ctx.send(f"Here's a list of roles you can use:\n```md\n{roles}```")
-

@@ -7,6 +7,7 @@ from discord.ext import commands
 
 class CommandErrorHandler:
     """Error handling for commands."""
+
     def __init__(self, bot, config):
         self.bot = bot
         self.config = config
@@ -34,4 +35,4 @@ class CommandErrorHandler:
         logging.warn("Ignoring exception in command {}:".format(ctx.command))
         logging.warn("\n" + "".join(
             traceback.format_exception(
-type(error), error, error.__traceback__)))
+                type(error), error, error.__traceback__)))
