@@ -62,6 +62,15 @@ class Roles:
         await ctx.send(f"You have been removed from role(s) `{', '.join([x.name for x in roles_processed])}`.")
 
     @commands.command()
+    @commands.has_permissions(administrator=True)
+    @commands.guild_only()
+    async def generate_config(self, ctx):
+        """Generates a config file with all roles on the server. For admin use only."""
+        roles = ctx.guild.roles
+        config_text = "[roles]\n" + "\n".join([f"\"{role.name}\"=\"{role.id}\"" for role in roles])
+        await ctx.send(f"Here you go, fresh from the oven:\n```md\n{config_text}```")
+
+    @commands.command()
     async def roles(self, ctx):
         """Lists available roles to take on."""
         roles = "\n".join(self.config["roles"].keys())
