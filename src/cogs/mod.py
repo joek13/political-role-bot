@@ -20,4 +20,5 @@ class Moderation:
     @commands.command()
     @commands.has_permissions(manage_messages=True)
     async def censor(self, ctx, user: discord.User):
+        """Removes recent messages from an individual user."""
         await ctx.channel.purge(check=lambda message: message.author == user, before=ctx.message)
