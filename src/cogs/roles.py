@@ -25,7 +25,15 @@ class Roles:
         else:
             return None
 
-    @commands.command(aliases=["roleadd"])
+    @commands.group()
+    async def role(self, ctx):
+        """Commands for adding/removing roles."""
+        if ctx.invoked_subcommand is None:
+            roles = list(self.config["roles"].keys())
+            roles_text = "\n".join(roles)
+            await ctx.send(f"Available roles:\n```md\n{roles_text}```\nYou can add a role like this:\n```md\n{self.bot.command_prefix}role add {roles[0]}```\nSee `{self.bot.command_prefix}help role` for help.")
+
+    @role.command()
     async def add(self, ctx, *roles):
         """Assigns `roles` to this user."""
         roles_processed = []
@@ -43,7 +51,7 @@ class Roles:
         await member.add_roles(*roles_processed)
         await ctx.send(f"You have been added to role(s) `{', '.join([x.name for x in roles_processed])}`.")
 
-    @commands.command(aliases=["roledel"])
+    @role.command()
     async def remove(self, ctx, *roles):
         """Removes `roles` from this user."""
         roles_processed = []
@@ -61,7 +69,7 @@ class Roles:
         await member.remove_roles(*roles_processed)
         await ctx.send(f"You have been removed from role(s) `{', '.join([x.name for x in roles_processed])}`.")
 
-    @commands.command()
+    @role.command()
     @commands.has_permissions(administrator=True)
     @commands.guild_only()
     async def generate_config(self, ctx):
@@ -70,8 +78,8 @@ class Roles:
         config_text = "[roles]\n" + "\n".join([f"\"{role.name.lower()}\"=\"{role.id}\"" for role in roles])
         await ctx.send(f"Here you go, fresh from the oven:\n```md\n{config_text}```")
 
-    @commands.command()
-    async def roles(self, ctx):
+    @role.command()
+    async def list(self, ctx):
         """Lists available roles to take on."""
         roles = "\n".join(self.config["roles"].keys())
         await ctx.send(f"Here's a list of roles you can use:\n```md\n{roles}```")

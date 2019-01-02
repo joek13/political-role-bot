@@ -16,7 +16,9 @@ def add_cogs():
         logging.info(f"Enabling cog {cog.__module__}...")
         bot.add_cog(cog(bot, cfg))  # initialize cog with bot and config
 
-
+@bot.event
+async def on_ready():
+    logging.info(f"Logged in as {bot.user.name}")
 @bot.event
 async def on_guild_join(guild):
     if guild.id != cfg["guild_id"]: # leave other guilds
