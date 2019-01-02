@@ -15,6 +15,12 @@ def add_cogs():
         logging.info(f"Enabling cog {cog.__module__}...")
         bot.add_cog(cog(bot, cfg)) # initialize cog with bot and config
 
+@bot.event
+async def on_guild_join(guild):
+    if guild.id != cfg["guild_id"]:
+        logging.info(f"Added to guild ID {guild.id}. Leaving...")
+        await guild.leave()
+
 def run():
     add_cogs()
     bot.run(cfg["token"])

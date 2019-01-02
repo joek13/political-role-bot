@@ -9,10 +9,10 @@ class Roles:
 
     @commands.command(aliases=["roleadd"])
     async def add(self, ctx, role):
-        """Assigns a role to this user."""
+        """Assigns `role` to this user."""
         pass
 
     @commands.command(aliases=["roledel"])
     async def remove(self, ctx, role):
-        """Removes a role from this user."""
+        """Removes `role` from this user."""
         pass
